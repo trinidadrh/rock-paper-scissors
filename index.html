@@ -5,56 +5,146 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
-  <script>
-    // Computer randomly selects rock, paper or scissors
 
-    function computerPlay() {
-      let choices = ['rock', 'paper', 'scissors'];
-      return choices[Math.floor(Math.random() * choices.length)];
-    } 
+<h4>Are you ready to play...</h4>
+<h1>ROCK PAPER SCISSORS?!</h1>
+<h3>If so, start each round by clicking a button below:</h3>
 
-    // IF computer and user choose same, prompt select again
-    //    IF computer selects rock, user wins if paper selected
-    //    IF computer selects paper, user wins if scissors selected
-    //    IF computer selects scissors, user wins if rock selected
+<button id="btn1">Rock</button>
+<button id="btn2">Paper</button>
+<button id="btn3">Scissors</button>
 
-    function playRound(playerSelection, computerSelection) {
-      let firstCapitalizedPlayer = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
-      let firstCapitalizedComputer = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
-      if (playerSelection.toLowerCase() == computerSelection) {
-        return ("It's a DRAW!");
-      } else if (playerSelection.toLowerCase() == "paper" && computerSelection == "rock") {
-        return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-      } else if (playerSelection.toLowerCase() == "rock" && computerSelection == "scissors") {
-        return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-      } else if (playerSelection.toLowerCase() == "scissors" && computerSelection == "paper") {
-        return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-      } else {
-        return ("You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer);
-      computerPlay();
-      }
-    }
+<div id="container"></div>
 
-    // User prompted to select rock, paper or scissors
-    // Compare computer selection and user selection
+<script>
 
-    function game() {
-      let playerPrompt = prompt('Type "paper", "rock" or "scissors" here:', "");
-      let playerSelection = playerPrompt;
-      let computerSelection = computerPlay();
-      console.log("You: " + playerSelection);
-      console.log("Computer: " + computerSelection);
-      console.log(playRound(playerSelection, computerSelection));
-    }
-    
-    // Prompt another round of game
+// Computer randomly selects rock, paper or scissors
 
-    game();
-    game();
-    game();
-    game();
-    game();
+function computerPlay() {
+  let choices = ['rock', 'paper', 'scissors'];
+  return choices[Math.floor(Math.random() * choices.length)];
+} 
 
-  </script>
+// IF computer and user choose same, prompt select again
+//    IF computer selects rock, user wins if paper selected
+//    IF computer selects paper, user wins if scissors selected
+//    IF computer selects scissors, user wins if rock selected
+
+function playRound(playerSelection, computerSelection) {
+  let playerScore = 0;
+  let computerScore = 0;
+  let firstCapitalizedPlayer = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+  let firstCapitalizedComputer = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
+  if (playerSelection == computerSelection) {
+    return ("It's a DRAW!");
+    return playerScore += 0;
+    return computerScore += 0;
+  } else if (playerSelection == "paper" && computerSelection == "rock") {
+    return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+    return playerScore += 1;
+    return computerScore += 0;
+  } else if (playerSelection == "rock" && computerSelection == "scissors") {
+    return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+    return playerScore += 1;
+    return computerScore += 0;
+  } else if (playerSelection == "scissors" && computerSelection == "paper") {
+    return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+    return playerScore += 1;
+    return computerScore += 0;
+  } else {
+    return ("You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer);
+    return playerScore += 0;
+    return computerScore += 1;
+    computerPlay();
+  }
+}
+
+// User prompted to select rock, paper or scissors
+// Compare computer selection and user selection
+
+// function game() {
+//  let playerPrompt = prompt('Type "paper", "rock" or "scissors" here:', "");
+//  let playerSelection = playerPrompt;
+//  let computerSelection = computerPlay();
+//  console.log("You: " + playerSelection);
+//  console.log("Computer: " + computerSelection);
+//  console.log(playRound(playerSelection, computerSelection));
+// }
+
+// Prompt another round of game
+
+
+const btn1 = document.querySelector("#btn1");
+btn1.addEventListener("click", function (e) {
+  let playerPrompt = "rock";
+  let playerSelection = playerPrompt;
+  let computerSelection = computerPlay();
+
+  console.log("You: " + playerSelection);
+  console.log("Computer: " + computerSelection);
+  console.log(playRound(playerSelection, computerSelection));
+//  console.log(playerTally + " / " + computerTally);
+});
+
+const btn2 = document.querySelector("#btn2");
+btn2.addEventListener("click", function (e) {
+  let playerPrompt = "paper";
+  let playerSelection = playerPrompt;
+  let computerSelection = computerPlay();
+
+  console.log("You: paper");
+  console.log("Computer: " + computerSelection);
+  console.log(playRound(playerSelection, computerSelection));
+//  console.log(playerTally + " / " + computerTally);
+
+});
+
+const btn3 = document.querySelector("#btn3");
+btn3.addEventListener("click",  function (e) {
+  let playerPrompt = "scissors";
+  let playerSelection = playerPrompt;
+  let computerSelection = computerPlay();
+  
+  console.log("You: " + playerSelection);
+  console.log("Computer: " + computerSelection);
+  console.log(playRound(playerSelection, computerSelection)); 
+//  console.log(playerTally + " / " + computerTally);
+
+});
+
+const container = document.querySelector("#container");
+
+const thisRound = document.createElement("h3");
+thisRound.classList.add("thisRound");
+thisRound.textContent = "The results for this round:";
+thisRound.style.color = "blue";
+thisRound.style.backgroundColor = "yellow";
+thisRound.style.borderStyle = "solid";
+
+// content.textContent = playRound(playerRound, computerRound);
+
+container.appendChild(thisRound);
+
+const yourScore = document.createElement("p");
+yourScore.classList.add("yourScore");
+yourScore.textContent = "You: ";
+
+thisRound.appendChild(yourScore); 
+
+const compScore = document.createElement("p");
+compScore.classList.add("compScore");
+compScore.textContent = "Computer: ";
+
+thisRound.appendChild(compScore); 
+
+// declare which player is winning
+
+//const runningTally = document.createElement("h3");
+//runningTally.classList.add("runningTally");
+//runningTally.textContent = "You've won -- games and the computer has won --.";
+
+//container.appendChild(runningTally);
+
+</script>
 </body>
 </html>
