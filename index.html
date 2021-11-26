@@ -28,6 +28,7 @@ function runningTally(a) {
     let pScore = playerScore;
     pScore += 1;
     console.log(pScore);
+    Tally.textContent = "You've won " + pScore + " games and the computer has won " + cScore + ".";
     if (pScore == 5) {
       let body = document.getElementById("body");
       document.body.innerHTML = "";
@@ -37,12 +38,14 @@ function runningTally(a) {
     let cScore = computerScore;
     cScore += 1;
     console.log(cScore);
+    Tally.textContent = "You've won " + pScore + " games and the computer has won " + cScore + ".";
     if (cScore == 5) {
       let body = document.getElementById("body");
       document.body.innerHTML = "";
       document.body.innerHTML = "<h3>'The computer wins. Refresh page to play again.</h3>";
     }
   }
+  Tally.textContent = "You've won " + pScore + " games and the computer has won " + cScore + ".";
 }
 
 // Computer selects rock, paper or scissors
@@ -53,22 +56,26 @@ function computerPlay() {
 
 // One round of the game
 function playRound(playerSelection, computerSelection) {
-
   let firstCapitalizedPlayer = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
   let firstCapitalizedComputer = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
   if (playerSelection == computerSelection) {
     return ("It's a DRAW!");
+    showWinner.textContent = "It's a DRAW!";
   } else if (playerSelection == "paper" && computerSelection == "rock") {
       return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+      showWinner.textContent = "You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
       runningTally(player);
   } else if (playerSelection == "rock" && computerSelection == "scissors") {
       return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+      showWinner.textContent = "You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
       runningTally(player);
   } else if (playerSelection == "scissors" && computerSelection == "paper") {
       return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+      showWinner.textContent = "You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
       runningTally(player);
   } else {
       return ("You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer);
+      showWinner.textContent = "You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer;
       runningTally(computer);
     }
   computerPlay();
@@ -80,9 +87,9 @@ btn1.addEventListener("click", function (e) {
   let playerPrompt = "rock";
   let playerSelection = playerPrompt;
   let computerSelection = computerPlay();
-  playerChoice = playerSelection;
-  playerChoice = computerSelection;
 
+  showYourScore.textContent = "You: " + playerSelection;
+  showCompScore.textContent = "Computer: " + computerSelection;
   console.log("You: " + playerSelection);
   console.log("Computer: " + computerSelection);
   console.log(playRound(playerSelection, computerSelection));
@@ -95,8 +102,9 @@ btn2.addEventListener("click", function (e) {
   let playerSelection = playerPrompt;
   let computerSelection = computerPlay();
   playerChoice = playerSelection;
-  playerChoice = computerSelection;
 
+  showYourScore.textContent = "You: " + playerSelection;
+  showCompScore.textContent = "Computer: " + computerSelection;
   console.log("You: paper");
   console.log("Computer: " + computerSelection);
   console.log(playRound(playerSelection, computerSelection));
@@ -111,6 +119,8 @@ btn3.addEventListener("click",  function (e) {
   playerChoice = playerSelection;
   playerChoice = computerSelection;
 
+  showYourScore.textContent = "You: " + playerSelection;
+  showCompScore.textContent = "Computer: " + computerSelection;
   console.log("You: " + playerSelection);
   console.log("Computer: " + computerSelection);
   console.log(playRound(playerSelection, computerSelection)); 
@@ -132,19 +142,23 @@ container.appendChild(thisRound);
 // Shows player score for round
 const showYourScore = document.createElement("p");
 showYourScore.classList.add("yourScore");
-showYourScore.textContent = "You: " + //playerSelection;
 thisRound.appendChild(showYourScore); 
 
 // Shows computer score for round
 const showCompScore = document.createElement("p");
 showCompScore.classList.add("compScore");
-showCompScore.textContent = "Computer: " + //computerSelection;
 thisRound.appendChild(showCompScore); 
+
+// Shows winner for round
+const showWinner = document.createElement("p");
+showWinner.classList.add("showWinner");
+// showWinner.textContent = "It's a DRAW!";
+thisRound.appendChild(showWinner); 
 
 // Shows win tallies for the whole game
 const Tally = document.createElement("h3");
 Tally.classList.add("runningTally");
-Tally.textContent = "You've won " + playerScore + " games and the computer has won " + computerScore + ".";
+// Tally.textContent = "You've won " + playerScore + " games and the computer has won " + computerScore + ".";
 container.appendChild(Tally);
 
 </script>
