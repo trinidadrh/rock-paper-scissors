@@ -18,132 +18,134 @@
 
 <script>
 
-// Computer randomly selects rock, paper or scissors
+let playerScore = 0;
+let computerScore = 0;
 
+// Tallies number of games won by player and computer 
+// Declares winner if a score reaches 5
+function runningTally(a) {
+  if (a == "player") {
+    let pScore = playerScore;
+    pScore += 1;
+    console.log(pScore);
+    if (pScore == 5) {
+      let body = document.getElementById("body");
+      document.body.innerHTML = "";
+      document.body.innerHTML = "<h3>'You win. Congrats. Refresh page to play again.</h3>";
+    }
+  } else if (a == "computer") {
+    let cScore = computerScore;
+    cScore += 1;
+    console.log(cScore);
+    if (cScore == 5) {
+      let body = document.getElementById("body");
+      document.body.innerHTML = "";
+      document.body.innerHTML = "<h3>'The computer wins. Refresh page to play again.</h3>";
+    }
+  }
+}
+
+// Computer selects rock, paper or scissors
 function computerPlay() {
   let choices = ['rock', 'paper', 'scissors'];
   return choices[Math.floor(Math.random() * choices.length)];
 } 
 
-// IF computer and user choose same, prompt select again
-//    IF computer selects rock, user wins if paper selected
-//    IF computer selects paper, user wins if scissors selected
-//    IF computer selects scissors, user wins if rock selected
-
+// One round of the game
 function playRound(playerSelection, computerSelection) {
-  let playerScore = 0;
-  let computerScore = 0;
+
   let firstCapitalizedPlayer = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
   let firstCapitalizedComputer = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
   if (playerSelection == computerSelection) {
     return ("It's a DRAW!");
-    return playerScore += 0;
-    return computerScore += 0;
   } else if (playerSelection == "paper" && computerSelection == "rock") {
-    return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-    return playerScore += 1;
-    return computerScore += 0;
+      return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+      runningTally(player);
   } else if (playerSelection == "rock" && computerSelection == "scissors") {
-    return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-    return playerScore += 1;
-    return computerScore += 0;
+      return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+      runningTally(player);
   } else if (playerSelection == "scissors" && computerSelection == "paper") {
-    return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-    return playerScore += 1;
-    return computerScore += 0;
+      return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
+      runningTally(player);
   } else {
-    return ("You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer);
-    return playerScore += 0;
-    return computerScore += 1;
-    computerPlay();
-  }
+      return ("You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer);
+      runningTally(computer);
+    }
+  computerPlay();
 }
 
-// User prompted to select rock, paper or scissors
-// Compare computer selection and user selection
-
-// function game() {
-//  let playerPrompt = prompt('Type "paper", "rock" or "scissors" here:', "");
-//  let playerSelection = playerPrompt;
-//  let computerSelection = computerPlay();
-//  console.log("You: " + playerSelection);
-//  console.log("Computer: " + computerSelection);
-//  console.log(playRound(playerSelection, computerSelection));
-// }
-
-// Prompt another round of game
-
-
+// Player chooses "rock" to start another round of game
 const btn1 = document.querySelector("#btn1");
 btn1.addEventListener("click", function (e) {
   let playerPrompt = "rock";
   let playerSelection = playerPrompt;
   let computerSelection = computerPlay();
+  playerChoice = playerSelection;
+  playerChoice = computerSelection;
 
   console.log("You: " + playerSelection);
   console.log("Computer: " + computerSelection);
   console.log(playRound(playerSelection, computerSelection));
-//  console.log(playerTally + " / " + computerTally);
 });
 
+// Player chooses "paper" to start another round of game
 const btn2 = document.querySelector("#btn2");
 btn2.addEventListener("click", function (e) {
   let playerPrompt = "paper";
   let playerSelection = playerPrompt;
   let computerSelection = computerPlay();
+  playerChoice = playerSelection;
+  playerChoice = computerSelection;
 
   console.log("You: paper");
   console.log("Computer: " + computerSelection);
   console.log(playRound(playerSelection, computerSelection));
-//  console.log(playerTally + " / " + computerTally);
-
 });
 
+// Player chooses "scissors" to start another round of game
 const btn3 = document.querySelector("#btn3");
 btn3.addEventListener("click",  function (e) {
   let playerPrompt = "scissors";
   let playerSelection = playerPrompt;
   let computerSelection = computerPlay();
-  
+  playerChoice = playerSelection;
+  playerChoice = computerSelection;
+
   console.log("You: " + playerSelection);
   console.log("Computer: " + computerSelection);
   console.log(playRound(playerSelection, computerSelection)); 
-//  console.log(playerTally + " / " + computerTally);
 
 });
 
+// Contains scores for all scores
 const container = document.querySelector("#container");
 
+// Container for round score
 const thisRound = document.createElement("h3");
 thisRound.classList.add("thisRound");
 thisRound.textContent = "The results for this round:";
 thisRound.style.color = "blue";
 thisRound.style.backgroundColor = "yellow";
 thisRound.style.borderStyle = "solid";
-
-// content.textContent = playRound(playerRound, computerRound);
-
 container.appendChild(thisRound);
 
-const yourScore = document.createElement("p");
-yourScore.classList.add("yourScore");
-yourScore.textContent = "You: ";
+// Shows player score for round
+const showYourScore = document.createElement("p");
+showYourScore.classList.add("yourScore");
+showYourScore.textContent = "You: " + //playerSelection;
+thisRound.appendChild(showYourScore); 
 
-thisRound.appendChild(yourScore); 
+// Shows computer score for round
+const showCompScore = document.createElement("p");
+showCompScore.classList.add("compScore");
+showCompScore.textContent = "Computer: " + //computerSelection;
+thisRound.appendChild(showCompScore); 
 
-const compScore = document.createElement("p");
-compScore.classList.add("compScore");
-compScore.textContent = "Computer: ";
-
-thisRound.appendChild(compScore); 
-
-// declare which player is winning
-
-//const runningTally = document.createElement("h3");
-//runningTally.classList.add("runningTally");
-//runningTally.textContent = "You've won -- games and the computer has won --.";
-
-//container.appendChild(runningTally);
+// Shows win tallies for the whole game
+const Tally = document.createElement("h3");
+Tally.classList.add("runningTally");
+Tally.textContent = "You've won " + playerScore + " games and the computer has won " + computerScore + ".";
+container.appendChild(Tally);
 
 </script>
 </body>
