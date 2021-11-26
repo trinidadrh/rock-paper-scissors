@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Page Title</title>
+  <title>Rock Paper Scissors</title>
   <meta charset="UTF-8"/>
 </head>
 <body>
 
 <h4>Are you ready to play...</h4>
 <h1>ROCK PAPER SCISSORS?!</h1>
-<h3>If so, start each round by clicking a button below:</h3>
+<h3>If so, start each round by clicking a button:</h3>
 
-<button id="btn1">Rock</button>
-<button id="btn2">Paper</button>
-<button id="btn3">Scissors</button>
+<button id="btn1"><h2>Rock</h2></button>
+<button id="btn2"><h2>Paper</h2></button>
+<button id="btn3"><h2>Scissors</h2></button>
+
+<h3><i>If you win five rounds before the computer does, you WIN the game!</i></h3>
 
 <div id="container"></div>
 
@@ -22,30 +24,30 @@ let playerScore = 0;
 let computerScore = 0;
 
 // Tallies number of games won by player and computer 
-// Declares winner if a score reaches 5
 function runningTally(a) {
   if (a == "player") {
-    let pScore = playerScore;
-    pScore += 1;
-    console.log(pScore);
-    Tally.textContent = "You've won " + pScore + " games and the computer has won " + cScore + ".";
-    if (pScore == 5) {
-      let body = document.getElementById("body");
-      document.body.innerHTML = "";
-      document.body.innerHTML = "<h3>'You win. Congrats. Refresh page to play again.</h3>";
-    }
+    playerScore += 1;
+    console.log(playerScore);
   } else if (a == "computer") {
-    let cScore = computerScore;
-    cScore += 1;
-    console.log(cScore);
-    Tally.textContent = "You've won " + pScore + " games and the computer has won " + cScore + ".";
-    if (cScore == 5) {
+    computerScore += 1;
+    console.log(computerScore);
+  }
+  declareWinner();
+}
+
+// Declares running tally or winner if a score reaches 5
+function declareWinner() {
+  if (playerScore == 5) {
       let body = document.getElementById("body");
       document.body.innerHTML = "";
-      document.body.innerHTML = "<h3>'The computer wins. Refresh page to play again.</h3>";
+      document.body.innerHTML = "<h3>You win. Congrats. Refresh page to play again.</h3>";
+  } else if (computerScore == 5) {
+      let body = document.getElementById("body");
+      document.body.innerHTML = "";
+      document.body.innerHTML = "<h3>The computer wins. Refresh page to play again.</h3>";
+  } else {
+      Tally.textContent = "You've won " + playerScore + " rounds and the computer has won " + computerScore + ".";
     }
-  }
-  Tally.textContent = "You've won " + pScore + " games and the computer has won " + cScore + ".";
 }
 
 // Computer selects rock, paper or scissors
@@ -59,24 +61,24 @@ function playRound(playerSelection, computerSelection) {
   let firstCapitalizedPlayer = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
   let firstCapitalizedComputer = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
   if (playerSelection == computerSelection) {
-    return ("It's a DRAW!");
     showWinner.textContent = "It's a DRAW!";
+    showWinner.style.color = "black";
   } else if (playerSelection == "paper" && computerSelection == "rock") {
-      return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-      showWinner.textContent = "You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
-      runningTally(player);
+      showWinner.textContent = "You WIN this round! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
+      showWinner.style.color = "green";
+      runningTally("player");
   } else if (playerSelection == "rock" && computerSelection == "scissors") {
-      return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-      showWinner.textContent = "You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
-      runningTally(player);
+      showWinner.textContent = "You WIN this round! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
+      showWinner.style.color = "green";
+      runningTally("player");
   } else if (playerSelection == "scissors" && computerSelection == "paper") {
-      return ("You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer);
-      showWinner.textContent = "You WIN! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
-      runningTally(player);
+      showWinner.textContent = "You WIN this round! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
+      showWinner.style.color = "green";
+      runningTally("player");
   } else {
-      return ("You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer);
-      showWinner.textContent = "You LOSE! " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer;
-      runningTally(computer);
+      showWinner.textContent = "You LOSE this round. " + firstCapitalizedComputer + " beats " + firstCapitalizedPlayer;
+      showWinner.style.color = "red";
+      runningTally("computer");
     }
   computerPlay();
 }
@@ -152,13 +154,11 @@ thisRound.appendChild(showCompScore);
 // Shows winner for round
 const showWinner = document.createElement("p");
 showWinner.classList.add("showWinner");
-// showWinner.textContent = "It's a DRAW!";
 thisRound.appendChild(showWinner); 
 
 // Shows win tallies for the whole game
 const Tally = document.createElement("h3");
 Tally.classList.add("runningTally");
-// Tally.textContent = "You've won " + playerScore + " games and the computer has won " + computerScore + ".";
 container.appendChild(Tally);
 
 </script>
