@@ -4,10 +4,15 @@
   <title>Rock Paper Scissors</title>
   <meta charset="UTF-8"/>
 </head>
+<style>
+  h1  {color: blue;}
+  h2  {padding-left: 2rem; padding-right: 2rem;}
+  body {background-color: rgb(211, 211, 211);}
+</style>
 <body>
 
 <h4>Are you ready to play...</h4>
-<h1 style="color:blue">ROCK PAPER SCISSORS?!</h1>
+<h1>ROCK PAPER SCISSORS?!</h1>
 <h3>If so, start each round by clicking a button:</h3>
 
 <button id="btn1"><h2>Rock</h2></button>
@@ -46,7 +51,7 @@ function declareWinner() {
       document.body.innerHTML = "";
       document.body.innerHTML = "<h3>The computer wins. Refresh page to play again.</h3>";
   } else {
-      Tally.textContent = "You've won " + playerScore + " rounds and the computer has won " + computerScore + ".";
+      Tally.textContent = " You've won " + playerScore + " rounds and the computer has won " + computerScore + ".";
     }
 }
 
@@ -61,7 +66,7 @@ function playRound(playerSelection, computerSelection) {
   let firstCapitalizedPlayer = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
   let firstCapitalizedComputer = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
   if (playerSelection == computerSelection) {
-    showWinner.textContent = "It's a DRAW!";
+    showWinner.textContent = " It's a DRAW!";
     showWinner.style.color = "black";
   } else if (playerSelection == "paper" && computerSelection == "rock") {
       showWinner.textContent = "You WIN this round! " + firstCapitalizedPlayer + " beats " + firstCapitalizedComputer;
@@ -137,8 +142,9 @@ const thisRound = document.createElement("h3");
 thisRound.classList.add("thisRound");
 thisRound.textContent = "The results for this round:";
 thisRound.style.color = "blue";
-thisRound.style.backgroundColor = "yellow";
+thisRound.style.backgroundColor = "lightyellow";
 thisRound.style.borderStyle = "solid";
+thisRound.style.borderWidth = "1px";
 container.appendChild(thisRound);
 
 // Shows player score for round
